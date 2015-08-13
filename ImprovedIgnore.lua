@@ -10,7 +10,7 @@ auto-remove that player from your ignore list, or block the tell.
 ]]
 
 -- Variables.
-IIGNORE_VER = "1.12.1"
+IIGNORE_VER = "1.12.1.1"
 local SendChatMessage_Orig = nil
 
 local defaultFrame = DEFAULT_CHAT_FRAME
