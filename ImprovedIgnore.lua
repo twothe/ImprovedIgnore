@@ -98,15 +98,19 @@ end
 local copyPlayerIgnoreEntries = function()
   local ignoredPlayer
   local numIgnores = GetNumIgnores()
+  local toDelete = {}
   if numIgnores then
 		for n = 1, numIgnores do
       ignoredPlayer = GetIgnoreName(n)
       if (not ImprovedIgnore_IsPlayerIgnored(ignoredPlayer)) then
         ImprovedIgnore_AddToIgnore(ignoredPlayer)
-        DelIgnore(ignoredPlayer) -- remove from Blizzard list
         log(string.format(STR_IIGNORE_FUNC_COPYFROMLIST, tostring(ignoredPlayer)))
 			end
+      table.insert(toDelete, ignoredPlayer)
 		end
+    for n, name in ipairs(toDelete) do
+      DelIgnore(name)
+    end
 	end
 end
 
