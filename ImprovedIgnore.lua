@@ -32,7 +32,7 @@ local hookChatFrame = function(frame)
           channel = STR_IIGNORE_CHANNEL_WHISPER 
         end
       end
-      if (found) then
+      if (found and player and channel) then
         if (ImprovedIgnore_IsPlayerIgnored(player) and not ImprovedIgnore_DoBypassChannel(channel)) then
           return
         end
@@ -46,7 +46,7 @@ end
 
 local fixPlayerName = function(player)
   local _, _, first, remaining = string.find(player, "^(.)(.+)")
-  return string.upper(first)..string.lower(remaining or "")
+  return string.upper(first or "")..string.lower(remaining or "")
 end
 
 local guessChannelName = function(channel)
@@ -195,7 +195,7 @@ local commands = setmetatable({
   end,
   
   [STR_IIGNORE_COMMAND_REMOVE] = function(name)
-    if (not string.find(name, " ")) then
+    if (name and not string.find(name, " ")) then
       name = fixPlayerName(name)
       if (ImprovedIgnore_IsPlayerIgnored(name)) then
         ImprovedIgnore_RemoveFromIgnore(name)
